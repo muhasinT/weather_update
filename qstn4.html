@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+    <table  class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Username</th>
+                <th scope="col">City</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Company</th>
+              </tr>
+        </thead>
+        <tbody id="userData">
+
+        </tbody>
+        <script>
+                fetch("https://jsonplaceholder.typicode.com/users")
+                .then((datafromServer) => datafromServer.json())//here first json return a promise so it called with then//
+                .then((users) => {      //here another promise return
+                userDetails(users);
+                })
+                .catch(err => console.log(err))
+
+                function userDetails(users){
+                    for(let user of users){
+                        let userId = user.id;
+                        let userName =user.name;
+                        let userUserName = user.username;
+                        let userEmail = user.email;
+                        let userCity = user.address.city;
+                        let userPhone = user.phone;
+                        let userCompany = user.company.name;
+
+                    
+
+                    let htmlRow = ` <tr>
+                        
+                <th scope="col">${userId}</th>
+                <td scope="col">${userName}</td>
+                <td scope="col">${userUserName}</td>
+                <td scope="col">${userEmail}</td>
+                <td scope="col">${userCity}</td>
+                <td scope="col">${userPhone}</td>
+                <td scope="col">${userCompany}</td>
+
+              </tr>`
+
+                document.getElementById("userData").innerHTML += htmlRow;
+            }
+
+                }
+        </script>
+    </table>
+  </body>
+</html>
